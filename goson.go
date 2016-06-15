@@ -42,7 +42,7 @@ func (g *Goson) Get(key string) *Goson {
 	if m, ok := g.i.(map[string]interface{}); ok {
 		return &Goson{i: m[key]}
 	}
-	return nil
+	return &Goson{}
 }
 
 // Value will retrieve the underlying interface value.
