@@ -69,7 +69,7 @@ func (g *Goson) Index(index int) *Goson {
 	if v, ok := g.i.([]interface{}); ok {
 		return &Goson{i: v[index]}
 	}
-	return nil
+	return &Goson{i: new(interface{})}
 }
 
 // Bool returns the bool value
