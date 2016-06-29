@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-// Goson the helper go object
+// Goson object
 type Goson struct {
 	i interface{}
 }
@@ -17,15 +17,6 @@ type Goson struct {
 	[]interface{}, for JSON arrays
 	map[string]interface{}, for JSON objects
 	nil for JSON null
-
-	switch t := g.i.(type) {
-	case bool:
-	case float64:
-	case string:
-	case []interface{}:
-	case map[string]interface{}:
-	default:
-	}
 */
 
 // Parse will create a goson object from json data
@@ -50,7 +41,7 @@ func (g *Goson) Value() interface{} {
 	return g.i
 }
 
-// Len will call len() on the underlying value
+// Len will return len() of the underlying value.
 func (g *Goson) Len() int {
 	switch t := g.i.(type) {
 	case string:
@@ -64,7 +55,7 @@ func (g *Goson) Len() int {
 	}
 }
 
-// Index is a replacement for accessing the index of a goson object if an array.
+// Index is used to access the index of an array object.
 func (g *Goson) Index(index int) *Goson {
 	if v, ok := g.i.([]interface{}); ok {
 		return &Goson{i: v[index]}
@@ -80,7 +71,7 @@ func (g *Goson) Bool() bool {
 	return false
 }
 
-// Int returns the underlying Int value.
+// Int returns the underlying Int value converted from a float64.
 func (g *Goson) Int() int {
 	if v, ok := g.i.(float64); ok {
 		return int(v)
@@ -96,7 +87,7 @@ func (g *Goson) Float() float64 {
 	return 0
 }
 
-// Slice returns the underlying slice value otherwise an empty slice.
+// Slice returns the underlying slice value.
 func (g *Goson) Slice() []interface{} {
 	if v, ok := g.i.([]interface{}); ok {
 		return v
@@ -104,7 +95,7 @@ func (g *Goson) Slice() []interface{} {
 	return []interface{}{}
 }
 
-// Map returns the underlying map otherwise an empty map.
+// Map returns the underlying map value.
 func (g *Goson) Map() map[string]interface{} {
 	if v, ok := g.i.(map[string]interface{}); ok {
 		return v
@@ -112,7 +103,7 @@ func (g *Goson) Map() map[string]interface{} {
 	return map[string]interface{}{}
 }
 
-// String will return the string version of any of the underlying objects.
+// String will return the string object or print out the entire json object.
 func (g *Goson) String() string {
 	switch t := g.i.(type) {
 	case bool:
