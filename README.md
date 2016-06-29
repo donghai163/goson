@@ -1,9 +1,8 @@
-![logo](https://us-bucket-host.s3.amazonaws.com/jason/jason_cropped_4.svg)
+![logo](https://github.com/panthesingh/goson/logo.svg)
 The better way to deal with JSON data in Go. Insipired by SwiftyJSON 
 
 # About
-
-Jason is designed to be convenient for reading arbitrary JSON while still honoring the strictness of the language. Inspired by other libraries and improved to work well for common use cases. It currently focuses on reading JSON data rather than creating it. [API Documentation](http://godoc.org/github.com/antonholmquist/jason) can be found on godoc.org.
+Goson is a very fast library.
 
 ## Install
 
@@ -11,16 +10,7 @@ Jason is designed to be convenient for reading arbitrary JSON while still honori
 go get github.com/panthesingh/goson
 ```
 
-## Data types
-
-The following golang values are used to represent JSON data types. It is consistent with how `encoding/json` uses primitive types.
-
-- `bool`, for JSON booleans
-- `json.Number/float64/int64`, for JSON numbers
-- `string`, for JSON strings
-- `[]*Value`, for JSON arrays
-- `map[string]*Value`, for JSON objects
-- `nil` for JSON null
+## Data
 
 ## Examples
 
@@ -96,32 +86,7 @@ func main() {
 
   name := v.GetString("name")
   age := v.GetNumber("age")
-  occupation, _ := v.GetString("other", "occupation")
-  years, _ := v.GetNumber("other", "years")
 
-  log.Println("age:", age)
-  log.Println("name:", name)
-  log.Println("occupation:", occupation)
-  log.Println("years:", years)
-
-  children, _ := v.GetStringArray("children")
-  for i, child := range children {
-    log.Printf("child %d: %s", i, child)
-  }
-
-  others, _ := v.GetObject("other")
-
-  for _, value := range others.Map() {
-
-    s, sErr := value.String()
-    n, nErr := value.Number()
-
-    if sErr == nil {
-      log.Println("string value: ", s)
-    } else if nErr == nil {
-      log.Println("number value: ", n)
-    }
-  }
 }
 
 ```
