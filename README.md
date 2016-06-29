@@ -1,4 +1,4 @@
-![logo](logo.svg "Goson")
+![Goson](logo.png "Goson")
 
 The intuitive way to deal with JSON in Go. Inspired by SwiftyJSON.
 
