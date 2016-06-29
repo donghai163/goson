@@ -1,5 +1,6 @@
-![logo](https://github.com/panthesingh/goson/logo.svg)
-The better way to deal with JSON data in Go. Insipired by SwiftyJSON 
+![logo](logo.svg "Goson")
+
+The intuitive way to deal with JSON in Go. Inspired by SwiftyJSON.
 
 # About
 Goson is a very fast library.
