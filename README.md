@@ -1,9 +1,9 @@
 ![Goson](https://dl.dropboxusercontent.com/u/9534337/goson_logo.svg "Goson")
 
-The intuitive way to deal with JSON in Go. Inspired by SwiftyJSON.
+A simple and intuitive way to handle JSON in Go.
 
 # About
-Goson is a very fast library.
+Goson was created to simplify reading JSON values within go. 
 
 ## Install
 
@@ -18,15 +18,13 @@ go get github.com/panthesingh/goson
 ### Create from bytes
 
 Create goson object from data. Returns an error if the data is not valid JSON.
-
 ```go
 g, err := goson.Parse(data)
-
 ```
+### Get
 
-### Read values
-
-Reading values is easy. If the key path is invalid or type doesn't match, it will return an error and the default value.
+Default value types are string, bool, float64 and int. Calling there corrosponding functions on a goson object 
+will return the value if it exists or the default value.
 
 ```go
 name := g.Get("name").String()
@@ -35,19 +33,28 @@ long := g.Get("longitude").Float()
 booled := g.Get("isFat").Bool()
 
 ```
-
 ### Chaining
-
-Reading nested values is easy. If the path is invalid or type doesn't match, it will return the default value and an error.
+Goson allows an intuitive way to grab data as you would expect from a normal json operation.
+Reading nested values is easy. The get function always returns a goson object which you can then call
+get again and again until you reach the desired object.
 
 ```go
-g.Get("bob").Get("one").Index(0).Get("Money").String()
-
+g.Get("key").Get("object").Index(0).Get("item").String()
 ```
 
-### Loop through array
+## Existance
+If you want to always check if the certain value exists you can use the conventional
+style on the function "Value()"
 
-Looping through an array is done with `GetValueArray()` or `GetObjectArray()`. It returns an error if the value at that keypath is null (or something else than an array).
+```go
+if v, ok := g.Get("key").Value().(string); ok {
+  println("the key value exists: ", v)
+}
+```
+
+### Loop
+Goson allows you to use Len() to get the length of a supposed array and then using
+the Index() function you can retrieve the element at the desired index.
 
 ```go
 for i := 0; i < g.Len(); i++ {
@@ -55,6 +62,10 @@ for i := 0; i < g.Len(); i++ {
     age := g.Index(i).Get("age").Int()
 }
 ```
+
+# Other Methods
+
+The Slice() and Map() helper methods return defualt json values for each types if needed.
 
 ## Sample
 
@@ -64,29 +75,30 @@ Example:
 package main
 
 import (
-  "github.com/antonholmquist/jason"
-  "log"
+  "github.com/panthesingh/jason"
 )
 
 func main() {
 
   json := `{
-    "name": "Walter White",
-    "age": 51,
-    "children": [
-      "junior",
-      "holly"
+    "name": "Bob",
+    "age": 100,
+    "cars": [
+      "Ferrari",
+      "Lamborghini"
     ],
-    "other": {
-      "occupation": "chemist",
-      "years": 23
+    "details": {
+      "weight": 100
     }
-  }`
+  }
 
-  g, err := goson.Parse([]byte(json))
-
-  name := v.GetString("name")
-  age := v.GetNumber("age")
+  g, _ := goson.Parse([]byte(json))
+  name := g.Get("name").String()
+  age := g.Get("age").Int()
+  cars := g.Get("cars")
+  carOne := car.Index(0).String()
+  carTwo := car.Index(1).String()
+  weight := g.Get("details").Get("weight").String()
 
 }
 
