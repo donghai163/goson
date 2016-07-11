@@ -2,7 +2,7 @@
 
 A simple and intuitive way to handle JSON in Go.
 
-# About
+## About
 Goson was created to simplify reading JSON values within go. 
 
 ## Install
@@ -11,11 +11,7 @@ Goson was created to simplify reading JSON values within go.
 go get github.com/panthesingh/goson
 ```
 
-## Data
-
-## Examples
-
-### Create from bytes
+### Getting Started
 
 Create goson object from data. Returns an error if the data is not valid JSON.
 ```go
@@ -42,7 +38,7 @@ get again and again until you reach the desired object.
 g.Get("key").Get("object").Index(0).Get("item").String()
 ```
 
-## Existance
+### Existance
 If you want to always check if the certain value exists you can use the conventional
 style on the function "Value()"
 
@@ -63,7 +59,7 @@ for i := 0; i < g.Len(); i++ {
 }
 ```
 
-# Other Methods
+## Other Methods
 
 The Slice() and Map() helper methods return defualt json values for each types if needed.
 
@@ -90,7 +86,7 @@ func main() {
     "details": {
       "weight": 100
     }
-  }
+  }`
 
   g, _ := goson.Parse([]byte(json))
   name := g.Get("name").String()
