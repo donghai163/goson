@@ -2,10 +2,10 @@
 
 A simple and intuitive way to handle JSON in Go.
 
-## About
+### About
 Goson was created to simplify reading JSON values within go. 
 
-## Install
+### Install
 
 ```shell
 go get github.com/panthesingh/goson
@@ -17,7 +17,7 @@ Create goson object from data. Returns an error if the data is not valid JSON.
 ```go
 g, err := goson.Parse(data)
 ```
-### Get
+### Data
 
 Default value types are string, bool, float64 and int. Calling there corrosponding functions on a goson object 
 will return the value if it exists or the default value.
@@ -59,13 +59,7 @@ for i := 0; i < g.Len(); i++ {
 }
 ```
 
-## Other Methods
-
-The Slice() and Map() helper methods return defualt json values for each types if needed.
-
-## Sample
-
-Example:
+### Example
 
 ```go
 package main
