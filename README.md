@@ -1,11 +1,10 @@
 ![Goson](https://dl.dropboxusercontent.com/u/9534337/goson_logo.svg "Goson")
 
-A simple and intuitive way to handle JSON in Go.
+A simple way to handle JSON data in Go.
 
 ### About
-Goson was created to simplify reading JSON within Go. Chain commands together
-to traverse complex JSON structures with ease. The values returned will never be nil unless explicity checked.
-
+Goson was created to simplify reading JSON data within Go. Chain commands together
+to traverse JSON structures with ease. This library has been inspired by [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 
 ### Install
 
@@ -13,7 +12,7 @@ to traverse complex JSON structures with ease. The values returned will never be
 go get github.com/panthesingh/goson
 ```
 
-### Getting Started
+### Starting
 
 Create goson object from data. Returns an error if the data is not valid JSON.
 ```go
@@ -21,8 +20,9 @@ g, err := goson.Parse(data)
 ```
 ### Data
 
-Use Get() as you would normally with a subscript on a map. Default value types are string, bool, float64 and int.
-These values will never return nil if the value does not exist, instead you will get the default zero value.
+Every `Get()` call will return another Goson object. You can then access the data with a value function.
+The default value types are `float64`, `int`, `bool`, `string`. If the key does not exist it the value function
+will return the default zero value. To check if a key exists read the section on existence.
 
 ```go
 name := g.Get("name").String()
@@ -32,14 +32,15 @@ booled := g.Get("isFat").Bool()
 
 ```
 ### Chaining
-Chaining is very intuitive way to quickly grab the data you need.
+Chaining is very intuitive way to quickly traverse and manipulate the data you need.
 
 ```go
 g.Get("key").Get("object").Index(0).Get("item").String()
 ```
 
 ### Existance
-To check if a certain value exists use Go's conventional way on the Value() function.
+To check if a value exists use a type check on the `Value()` function. This returns
+the Goson object's underlying `interface{}` value.
 
 ```go
 if v, ok := g.Get("key").Value().(string); ok {
@@ -48,8 +49,8 @@ if v, ok := g.Get("key").Value().(string); ok {
 ```
 
 ### Loop
-Currently you can call Len() on any Goson object to return len(). Allowing you to loop
-through JSON arrays with the Index() function.
+Call `Len()` on any Goson object to length on the underlying value. Then you can loop through
+the array using the `Index()` function.
 
 ```go
 for i := 0; i < g.Len(); i++ {
@@ -57,6 +58,16 @@ for i := 0; i < g.Len(); i++ {
     age := g.Index(i).Get("age").Int()
 }
 ```
+
+### Printing
+Another useful feature within Goson is to print out the JSON structure at any value. Simply print any
+Goson object to return the underlying structure in a pretty format.
+
+```go
+v := g.Get("sibling")
+fmt.Println(v)
+```
+
 
 ### Example
 
@@ -93,12 +104,12 @@ func main() {
 
 ```
 
-## Documentation
+### Documentation
 
 Documentation can be found on godoc:
 
 https://godoc.org/github.com/panthesingh/goson
 
-## Author
+### Author
 
 Panthe Singh, http://twitter.com/panthesingh
