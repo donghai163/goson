@@ -3,7 +3,7 @@
 A simple and intuitive way to handle JSON in Go.
 
 ### About
-Goson was created to simplify reading JSON values within go. 
+Goson was created to simplify reading JSON within Go. 
 
 ### Install
 
@@ -20,7 +20,7 @@ g, err := goson.Parse(data)
 ### Data
 
 Default value types are string, bool, float64 and int. Calling there corrosponding functions on a goson object 
-will return the value if it exists or the default value.
+will return the value if it exists or the default value. They do not return without knowing the function.
 
 ```go
 name := g.Get("name").String()
