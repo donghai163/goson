@@ -3,7 +3,9 @@
 A simple and intuitive way to handle JSON in Go.
 
 ### About
-Goson was created to simplify reading JSON within Go. 
+Goson was created to simplify reading JSON within Go. Chain commands together
+to traverse complex JSON structures with ease. The values returned will never be nil unless explicity checked.
+
 
 ### Install
 
@@ -19,8 +21,8 @@ g, err := goson.Parse(data)
 ```
 ### Data
 
-Default value types are string, bool, float64 and int. Calling there corrosponding functions on a goson object 
-will return the value if it exists or the default value. They do not return without knowing the function.
+Use Get() as you would normally with a subscript on a map. Default value types are string, bool, float64 and int.
+These values will never return nil if the value does not exist, instead you will get the default zero value.
 
 ```go
 name := g.Get("name").String()
@@ -30,17 +32,14 @@ booled := g.Get("isFat").Bool()
 
 ```
 ### Chaining
-Goson allows an intuitive way to grab data as you would expect from a normal json operation.
-Reading nested values is easy. The get function always returns a goson object which you can then call
-get again and again until you reach the desired object.
+Chaining is very intuitive way to quickly grab the data you need.
 
 ```go
 g.Get("key").Get("object").Index(0).Get("item").String()
 ```
 
 ### Existance
-If you want to always check if the certain value exists you can use the conventional
-style on the function "Value()"
+To check if a certain value exists use Go's conventional way on the Value() function.
 
 ```go
 if v, ok := g.Get("key").Value().(string); ok {
@@ -49,8 +48,8 @@ if v, ok := g.Get("key").Value().(string); ok {
 ```
 
 ### Loop
-Goson allows you to use Len() to get the length of a supposed array and then using
-the Index() function you can retrieve the element at the desired index.
+Currently you can call Len() on any Goson object to return len(). Allowing you to loop
+through JSON arrays with the Index() function.
 
 ```go
 for i := 0; i < g.Len(); i++ {
