@@ -32,7 +32,7 @@ married := g.Get("married").Bool()
 
 ```
 ### Chaining
-Chaining is very intuitive way to quickly traverse and manipulate the data you need.
+Chaining is very intuitive way to quickly traverse the data and grab what you need.
 
 ```go
 g.Get("key").Get("object").Index(0).Get("item").String()
