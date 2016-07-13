@@ -1,10 +1,10 @@
 ![Goson](https://dl.dropboxusercontent.com/u/9534337/goson_logo.svg "Goson")
 
-A simple way to handle JSON data in Go.
+JSON in golang with ease. 
 
 ### About
-Goson was created to simplify reading JSON data within Go. Chain commands together
-to traverse JSON structures with ease. This library has been inspired by [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
+Goson was created to simplify reading JSON data within Golang.
+This library has been heavily inspired by [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 
 ### Install
 
@@ -14,21 +14,21 @@ go get github.com/panthesingh/goson
 
 ### Starting
 
-Create goson object from data. Returns an error if the data is not valid JSON.
+Create a goson object from JSON data. Returns an error if the data is not valid JSON.
 ```go
 g, err := goson.Parse(data)
 ```
 ### Data
 
-Every `Get()` call will return another Goson object. You can then access the data with a value function.
-The default value types are `float64`, `int`, `bool`, `string`. If the key does not exist it the value function
+Every `Get()` call will return another goson object. You can access the underlying data with a value function.
+The default value types are `float64`, `int`, `bool`, `string`. If the key does not exist the function
 will return the default zero value. To check if a key exists read the section on existence.
 
 ```go
 name := g.Get("name").String()
 age := g.Get("age").Int()
-long := g.Get("longitude").Float()
-booled := g.Get("isFat").Bool()
+weight := g.Get("weight").Float()
+married := g.Get("married").Bool()
 
 ```
 ### Chaining
@@ -40,17 +40,18 @@ g.Get("key").Get("object").Index(0).Get("item").String()
 
 ### Existance
 To check if a value exists use a type check on the `Value()` function. This returns
-the Goson object's underlying `interface{}` value.
+the goson object's underlying value as `interface{}`.
 
 ```go
-if v, ok := g.Get("key").Value().(string); ok {
-  println("the key value exists: ", v)
+v, ok := g.Get("key").Value().(string)
+if !ok {
+  println("key does not exist")
 }
 ```
 
 ### Loop
-Call `Len()` on any Goson object to length on the underlying value. Then you can loop through
-the array using the `Index()` function.
+Calling `Len()` on any goson object will return `len()` on the underlying value. You can use the
+`Index()` function to loop through all the values.
 
 ```go
 for i := 0; i < g.Len(); i++ {
@@ -60,14 +61,13 @@ for i := 0; i < g.Len(); i++ {
 ```
 
 ### Printing
-Another useful feature within Goson is to print out the JSON structure at any value. Simply print any
-Goson object to return the underlying structure in a pretty format.
+A very useful feature is to check the JSON structure. Printing a goson
+object will display pretty printed. Likewise calling `String()` should return the same ouput as a string.
 
 ```go
-v := g.Get("sibling")
+v := g.Get("child")
 fmt.Println(v)
 ```
-
 
 ### Example
 
@@ -84,11 +84,12 @@ func main() {
     "name": "Bob",
     "age": 100,
     "cars": [
-      "Ferrari",
-      "Lamborghini"
+      "Honda",
+      "Toyota"
     ],
     "details": {
-      "weight": 100
+      "weight": 160.5,
+      "married": false
     }
   }`
 
