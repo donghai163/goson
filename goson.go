@@ -28,7 +28,8 @@ func Parse(data []byte) (*Goson, error) {
 	return &Goson{i: i}, nil
 }
 
-// Get returns a goson object from a key
+// Get returns a goson object from a key.
+// If the value does not exist this will still return a goson object.
 func (g *Goson) Get(key string) *Goson {
 	if m, ok := g.i.(map[string]interface{}); ok {
 		return &Goson{i: m[key]}
@@ -41,7 +42,8 @@ func (g *Goson) Value() interface{} {
 	return g.i
 }
 
-// Len will return len() of the underlying value.
+// Len will return len() on the underlying value.
+// If the value does not have a length the return value will be 0.
 func (g *Goson) Len() int {
 	switch t := g.i.(type) {
 	case string:
@@ -63,7 +65,7 @@ func (g *Goson) Index(index int) *Goson {
 	return &Goson{i: new(interface{})}
 }
 
-// Bool returns the bool value
+// Bool returns the bool value.
 func (g *Goson) Bool() bool {
 	if v, ok := g.i.(bool); ok {
 		return v
@@ -103,7 +105,8 @@ func (g *Goson) Map() map[string]interface{} {
 	return map[string]interface{}{}
 }
 
-// String will return the string object or print out the entire json object.
+// String will convert the underlying value as a string if it can or return an empty string.
+// If the object is a JSON map or array it will return the structure in an indented format.
 func (g *Goson) String() string {
 	switch t := g.i.(type) {
 	case bool:
