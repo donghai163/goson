@@ -1,10 +1,10 @@
 ![Goson](https://dl.dropboxusercontent.com/u/9534337/goson_logo.svg "Goson")
 
-JSON in golang with ease. 
+Handle JSON with ease in golang. 
 
 ### About
 Goson was created to simplify reading JSON data within Golang.
-This library has been heavily inspired by [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
+This library has been inspired by [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 
 ### Install
 
@@ -32,7 +32,7 @@ married := g.Get("married").Bool()
 
 ```
 ### Chaining
-Chaining is very intuitive way to quickly traverse the data and grab what you need.
+Chaining is a nice way to quickly traverse the data and grab what you need.
 
 ```go
 g.Get("key").Get("object").Index(0).Get("item").String()
@@ -40,7 +40,7 @@ g.Get("key").Get("object").Index(0).Get("item").String()
 
 ### Existance
 To check if a value exists use a type check on the `Value()` function. This returns
-the goson object's underlying value as `interface{}`.
+the underlying value as an `interface{}`.
 
 ```go
 v, ok := g.Get("key").Value().(string)
@@ -50,7 +50,7 @@ if !ok {
 ```
 
 ### Loop
-Calling `Len()` on any goson object will return `len()` on the underlying value. You can use the
+Calling `Len()` will return `len()` on the underlying value. You can use the
 `Index()` function to loop through all the values.
 
 ```go
@@ -61,8 +61,8 @@ for i := 0; i < g.Len(); i++ {
 ```
 
 ### Printing
-A very useful feature is to check the JSON structure. Printing a goson
-object will display pretty printed. Likewise calling `String()` should return the same ouput as a string.
+A very useful feature is pretty printing the JSON structure at any value. 
+Likewise calling `String()` returns the same string.
 
 ```go
 v := g.Get("child")
@@ -75,7 +75,7 @@ fmt.Println(v)
 package main
 
 import (
-  "github.com/panthesingh/jason"
+  "github.com/panthesingh/goson"
 )
 
 func main() {
@@ -100,6 +100,7 @@ func main() {
   carOne := car.Index(0).String()
   carTwo := car.Index(1).String()
   weight := g.Get("details").Get("weight").String()
+  married := g.Get("details").Get("married").Bool()
 
 }
 
