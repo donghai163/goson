@@ -37,9 +37,9 @@ func (g *Goson) Get(key string) *Goson {
 	return &Goson{i: new(interface{})}
 }
 
-// SetInt returns a goson object after change the value
+// Set returns a goson object after change the value
 // If the value does not exist this will still return a goson object.
-func (g *Goson) SetInt(key string, value int) *Goson {
+func (g *Goson) Set(key string, value interface{}) *Goson {
 	if m, ok := g.i.(map[string]interface{}); ok {
 		m[key] = value
 		return &Goson{i: m[key]}
