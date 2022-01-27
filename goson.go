@@ -19,6 +19,10 @@ type Goson struct {
 	nil for JSON null
 */
 
+func New(i interface{}) *Goson {
+	return &Goson{i: i}
+}
+
 // Parse will create a goson object from json data
 func Parse(data []byte) (*Goson, error) {
 	var i interface{}
@@ -42,44 +46,7 @@ func (g *Goson) Get(key string) *Goson {
 func (g *Goson) Set(key string, value interface{}) *Goson {
 	if m, ok := g.i.(map[string]interface{}); ok {
 		m[key] = value
-		// fmt.Println("eee", &Goson{i: m[key]})
 		return &Goson{i: m[key]}
-	}
-	return &Goson{i: new(interface{})}
-}
-
-// SetInt returns a goson object after change the value
-// If the value does not exist this will still return a goson object.
-func (g *Goson) SetInt(key int, value int) *Goson {
-	if m, ok := g.i.([]interface{}); ok {
-		m[key] = value
-		return &Goson{i: m[key]}
-	}
-	return &Goson{i: new(interface{})}
-}
-
-// SetGoson returns a goson object after change the value
-// If the value does not exist this will still return a goson object.
-func (g *Goson) SetGoson(key string, value *Goson) *Goson {
-	if m, ok := g.i.(map[string]interface{}); ok {
-		m[key] = value.Map()
-		// fmt.Println("www", value, &Goson{i: m[key]})
-		// fmt.Println("ooo", g.i)
-		return &Goson{i: m[key]}
-	}
-	return &Goson{i: new(interface{})}
-}
-
-// Append returns a goson object after change the value
-// If the value does not exist this will still return a goson object.
-func (g *Goson) Append(value *Goson) *Goson {
-
-	if v, ok := g.i.([]interface{}); ok {
-		// m[key] = value
-		// fmt.Println(value)
-		v = append(v, value.Map())
-		// fmt.Println("wwww", v)
-		return &Goson{i: v}
 	}
 	return &Goson{i: new(interface{})}
 }
